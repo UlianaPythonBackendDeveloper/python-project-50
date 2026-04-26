@@ -7,6 +7,7 @@ def main():
     )
     parser.add_argument('file1')
     parser.add_argument('file2')
+    
     parser.parse_args()
 
 
