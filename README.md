@@ -25,9 +25,19 @@ make install
 
 ### Examples
 
+Сравнение плоских JSON-файлов:
+
 ```bash
 uv run gendiff tests/test_data/file1.json tests/test_data/file2.json
 ```
+
+Сравнение плоских YAML-файлов:
+
+```bash
+uv run gendiff tests/test_data/file1.yml tests/test_data/file2.yml
+```
+
+[![asciicast](https://asciinema.org/a/Go0h5yOWlGjKs90kY807re9os.svg)](https://asciinema.org/a/Go0h5yOWlGjKs90kY807re9os)
 
 ### Run tests
 
