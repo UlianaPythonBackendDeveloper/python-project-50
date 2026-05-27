@@ -1,8 +1,3 @@
-from gendiff.scripts.gendiff import main
+from gendiff.generate_diff import generate_diff
 
-def main():
-
-
-
-    if __name__ == '__main__':
-        main()
+__all__ = ['generate_diff']
