@@ -1,39 +1,32 @@
-def build_diff_tree(content1, content2):
-    diff_tree = {}
+def _key_changes(first_data, second_data, key):
+    result = {}
+    first_value = first_data.get(key)
+    second_value = second_data.get(key)
 
-    keys1 = set(content1)
-    keys2 = set(content2)
+    if first_value == second_value:
+        result['status'] = 'equal'
+        result['old_value'] = first_value
+    elif isinstance(first_value, dict) and isinstance(second_value, dict):
+        result['status'] = 'nested'
+        result['children'] = build_diff_tree(first_value, second_value)
+    elif key in first_data and key in second_data:
+        result['status'] = 'updated'
+        result['old_value'] = first_value
+        result['new_value'] = second_value
+    elif key in first_data:
+        result['status'] = 'removed'
+        result['old_value'] = first_value
+    elif key in second_data:
+        result['status'] = 'added'
+        result['new_value'] = second_value
+    return result
 
-    all_keys = keys1 | keys2
-    added = keys2 - keys1
-    deleted = keys1 - keys2
 
-    for key in sorted(all_keys):
-        if key in added:
-            diff_tree[key] = {
-                'status': 'added',
-                'value': content2.get(key),
-            }
-        elif key in deleted:
-            diff_tree[key] = {
-                'status': 'deleted',
-                'value': content1.get(key),
-            }
-        elif content1.get(key) == content2.get(key):
-            diff_tree[key] = {
-                'status': 'unchanged',
-                'value': content1.get(key),
-            }
-        elif isinstance(content1.get(key), dict) and isinstance(
-            content2.get(key), dict
-        ):
-            diff_tree[key] = {
-                'status': 'nested',
-                'value': build_diff_tree(content1.get(key), content2.get(key)),
-            }
-        else:
-            diff_tree[key] = {
-                'status': 'updated',
-                'value': [content1.get(key), content2.get(key)],
-            }
-    return diff_tree
+def build_diff_tree(first_data, second_data):
+    keys = sorted(first_data.keys() | second_data.keys())
+    diff = []
+    for key in keys:
+        node = {'key': key}
+        node.update(_key_changes(first_data, second_data, key))
+        diff.append(node)
+    return diff
