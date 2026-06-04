@@ -1,8 +1,8 @@
 import os
 
-from gendiff.difference import build_diff_tree
+from gendiff.scripts.difference import build_diff_tree
 from gendiff.formatters import apply_formatter
-from gendiff.parser import parse
+from gendiff.scripts.parser import parse
 
 
 def generate_diff(file_path1, file_path2, format_name='stylish'):

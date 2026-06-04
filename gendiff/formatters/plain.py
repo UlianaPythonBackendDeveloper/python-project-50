@@ -1,4 +1,4 @@
-from gendiff.utils import resolve_none_and_boolean
+from gendiff.scripts.utils import resolve_none_and_boolean
 
 
 def plain(diff):

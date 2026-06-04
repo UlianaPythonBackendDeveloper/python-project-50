@@ -1,6 +1,6 @@
 from itertools import chain
 
-from gendiff.utils import resolve_none_and_boolean
+from gendiff.scripts.utils import resolve_none_and_boolean
 
 SPACES_PER_LEVEL = 4
 OFFSET = 2
